@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+
+    <com.nitishp.sheetmusic.MusicBarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view">
+        <com.nitishp.sheetmusic.NoteView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:noteValue="LOWER_B"
+            app:noteDuration="HALF"/>
+        <com.nitishp.sheetmusic.NoteView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:noteValue="LOWER_C"
+            app:noteDuration="HALF"/>
+        <com.nitishp.sheetmusic.NoteView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:noteValue="LOWER_D"
+            app:noteDuration="FOURTH"/>
+        <com.nitishp.sheetmusic.NoteView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:noteValue="LOWER_E"
+            app:noteDuration="FOURTH"/>
+        <com.nitishp.sheetmusic.NoteView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:noteValue="LOWER_F"
+            app:noteDuration="FOURTH"/>
+    </com.nitishp.sheetmusic.MusicBarView>
+
+</LinearLayout>

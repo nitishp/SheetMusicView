@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NoteView">
+        <attr name="noteValue" format="enum">
+            <enum name="LOWER_B" value="0" />
+            <enum name="LOWER_C" value="1" />
+            <enum name="LOWER_D" value="2" />
+            <enum name="LOWER_E" value="3" />
+            <enum name="LOWER_F" value="4" />
+            <enum name="LOWER_G" value="5" />
+            <enum name="HIGHER_A" value="6" />
+            <enum name="HIGHER_B" value="7" />
+            <enum name="HIGHER_C" value="8" />
+            <enum name="HIGHER_D" value="9" />
+            <enum name="HIGHER_E" value="10" />
+            <enum name="HIGHER_F" value="11" />
+            <enum name="HIGHER_G" value="12" />
+        </attr>
+        <attr name="noteDuration" format="enum">
+            <enum name="SIXTEENTH" value="0" />
+            <enum name="EIGHTH" value="1" />
+            <enum name="FOURTH" value="2" />
+            <enum name="HALF" value="3" />
+            <enum name="WHOLE" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>
