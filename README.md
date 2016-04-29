@@ -2,7 +2,8 @@
 This is a simple library to help incorporate sheet music quickly into your android application. It is compatible with all API versions 8 and higher.
 
 # Example
-<!--- Insert an image here --->
+[!alt tag](https://raw.githubusercontent.com/nitishp/sheetmusicview/readme_creation/images/noteExample.png)
+
 # Usage
 
 # Installation
