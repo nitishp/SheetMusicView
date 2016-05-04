@@ -43,6 +43,20 @@ public class MusicBarView extends ViewGroup
         initialize(context);
     }
 
+    // Set up the parameters to initialize all paint objects
+    private void initialize(Context context)
+    {
+        mContext = context;
+        width = height = xTopLeft = 0;
+        notes = new ArrayList<>();
+        musicBarBlack = new Paint();
+        musicBarBlack.setColor(Color.BLACK);
+        musicBarBlack.setStyle(Paint.Style.FILL);
+
+        linePositions = new ArrayList<>();
+        setWillNotDraw(false); // Make sure that onDraw is called for a viewGroup
+    }
+
     @Override
     public void onDraw(Canvas canvas)
     {
@@ -50,9 +64,16 @@ public class MusicBarView extends ViewGroup
         // TODO: FIX THIS BACK TO NUM_DEFINITE_BLACK_AREA
         for (int i = 0; i < NUM_POSSIBLE_BLACK_AREA; ++i)
         {
-            canvas.drawRect(xTopLeft, linePositions.get(i), xTopLeft + width,
-                    linePositions.get(i) + (PERCENT_HEIGHT_BLACK_AREA * height), musicBarBlack);
+            float yLineCenter = linePositions.get(i) + (musicBarBlack.getStrokeWidth() / 2);
+            canvas.drawLine(xTopLeft, yLineCenter, xTopLeft + width, yLineCenter, musicBarBlack);
         }
+
+        // Draw the left and right lines of the bar
+        float xTopRight = xTopLeft + width;
+        float yTop = linePositions.get(0);
+        float yBottom = linePositions.get(linePositions.size() - 1);
+        canvas.drawLine(xTopLeft, yTop, xTopLeft, yBottom, musicBarBlack);
+        canvas.drawLine(xTopRight, yTop, xTopRight, yBottom,  musicBarBlack);
     }
 
     @Override
@@ -62,15 +83,14 @@ public class MusicBarView extends ViewGroup
 
         // Recompute all the dimensions and locations of the black lines
         setup();
-        int debug = getPaddingTop();
-        int debug2 = getPaddingLeft();
         this.width = right - left - getPaddingRight() - getPaddingLeft();
         this.height = bottom - top - getPaddingBottom() - getPaddingTop();
         this.xTopLeft = getPaddingLeft();
 
         float blackLineHeight = PERCENT_HEIGHT_BLACK_AREA * this.height;
-        float whiteAreaHeight = PERCENT_HEIGHT_WHITE_AREA * this.height;
+        musicBarBlack.setStrokeWidth(blackLineHeight);
 
+        float whiteAreaHeight = PERCENT_HEIGHT_WHITE_AREA * this.height;
         float startVal = 0;
         for(int i = 0; i < NUM_POSSIBLE_BLACK_AREA; ++i)
         {
@@ -120,18 +140,6 @@ public class MusicBarView extends ViewGroup
         addView(new NoteView(mContext, note));
     }
 
-    // Set up the parameters to initialize all paint objects
-    private void initialize(Context context)
-    {
-        mContext = context;
-        width = height = xTopLeft = 0;
-        notes = new ArrayList<>();
-        musicBarBlack = new Paint();
-        musicBarBlack.setColor(Color.BLACK);
-        musicBarBlack.setStyle(Paint.Style.FILL);
-        linePositions = new ArrayList<>();
-        setWillNotDraw(false); // Make sure that onDraw is called for a viewGroup
-    }
 
     // Set up the notes list to make sure it matches with the child views of this MusicBarView
     // Check that each child view is a NoteView
