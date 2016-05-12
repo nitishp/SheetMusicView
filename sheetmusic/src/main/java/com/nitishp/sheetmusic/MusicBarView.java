@@ -21,6 +21,7 @@ public class MusicBarView extends ViewGroup
     private final int NUM_WHITE_AREA = 6;
     private final float PERCENT_HEIGHT_BLACK_AREA = 0.01f;
     private final float PERCENT_HEIGHT_WHITE_AREA = (1 - (PERCENT_HEIGHT_BLACK_AREA*NUM_POSSIBLE_BLACK_AREA))/(NUM_WHITE_AREA);
+    private final float PERCENT_NOTE_PADDING_LEFT = 0.2f;
     private final int MAX_NUM_NOTES = 16;
     private final int NUM_WHITE_SPACES_LINE = 3; // number of white areas the child NoteView wants to cover
 
@@ -61,8 +62,7 @@ public class MusicBarView extends ViewGroup
     public void onDraw(Canvas canvas)
     {
         // Draw all the black areas
-        // TODO: FIX THIS BACK TO NUM_DEFINITE_BLACK_AREA
-        for (int i = 0; i < NUM_POSSIBLE_BLACK_AREA; ++i)
+        for (int i = 0; i < NUM_DEFINITE_BLACK_AREA; ++i)
         {
             float yLineCenter = linePositions.get(i) + (musicBarBlack.getStrokeWidth() / 2);
             canvas.drawLine(xTopLeft, yLineCenter, xTopLeft + width, yLineCenter, musicBarBlack);
@@ -71,9 +71,31 @@ public class MusicBarView extends ViewGroup
         // Draw the left and right lines of the bar
         float xTopRight = xTopLeft + width;
         float yTop = linePositions.get(0);
-        float yBottom = linePositions.get(linePositions.size() - 1);
+        float yBottom = linePositions.get(NUM_DEFINITE_BLACK_AREA - 1);
         canvas.drawLine(xTopLeft, yTop, xTopLeft, yBottom, musicBarBlack);
         canvas.drawLine(xTopRight, yTop, xTopRight, yBottom,  musicBarBlack);
+
+        // Draw the bottom lines as necessary for the notes
+        float noteBegin = xTopLeft + getPaddingLeft();
+        float noteWidth = this.width / getChildCount();
+        for(int i = 0; i < notes.size(); ++i)
+        {
+            float noteEnd = noteBegin + (this.width / MAX_NUM_NOTES);
+            // Draw the first hidden line as necessary
+            if(notes.get(i).getNoteValue().getValue() <= NoteData.NoteValue.LOWER_C.getValue())
+            {
+                float hiddenLineYVal = linePositions.get(NUM_POSSIBLE_BLACK_AREA - 1 - NoteData.NoteValue.LOWER_C.getValue());
+                canvas.drawLine(noteBegin - (getPaddingLeft() / 2), hiddenLineYVal, noteEnd, hiddenLineYVal, musicBarBlack);
+            }
+            // Draw the second hidden line as necessary
+            if(notes.get(i).getNoteValue().getValue() <= NoteData.NoteValue.LOWER_B.getValue())
+            {
+                float hiddenLineYVal = linePositions.get(NUM_POSSIBLE_BLACK_AREA - 1 - NoteData.NoteValue.LOWER_B.getValue());
+                canvas.drawLine(noteBegin - (getPaddingLeft() / 2), hiddenLineYVal, noteEnd, hiddenLineYVal, musicBarBlack);
+            }
+
+            noteBegin += noteWidth;
+        }
     }
 
     @Override
@@ -112,7 +134,9 @@ public class MusicBarView extends ViewGroup
             // most possible bottom value for the note is this.height - blackLineHeight (because the lowest note is LOWER_B)
 
             int noteBottom = (int) (this.height - blackLineHeight - (notes.get(i).getNoteValue().getValue() * incrementValue));
-            int leftStartVal = (i * itemWidth) + getPaddingLeft();
+            int debug2 = v.getWidth();
+            float debug = this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT;
+            int leftStartVal = (i * itemWidth) + getPaddingLeft() + (int) (this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT);
             v.layout(leftStartVal, noteBottom - v.getMeasuredHeight(), leftStartVal + v.getMeasuredWidth(), noteBottom);
         }
     }
@@ -121,7 +145,7 @@ public class MusicBarView extends ViewGroup
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int childWidth = getMeasuredWidth() / MAX_NUM_NOTES;
+        int childWidth = (int) ((getMeasuredWidth() / MAX_NUM_NOTES) * (1 - (2 * PERCENT_NOTE_PADDING_LEFT)));
         int wSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
         int childHeight = (int) (getMeasuredHeight() * PERCENT_HEIGHT_WHITE_AREA * NUM_WHITE_SPACES_LINE);
         int hSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY);
@@ -138,6 +162,7 @@ public class MusicBarView extends ViewGroup
     {
         notes.add(note);
         addView(new NoteView(mContext, note));
+        invalidate();
     }
 
 
