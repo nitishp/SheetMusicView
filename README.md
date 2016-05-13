@@ -4,7 +4,7 @@ This is a simple library to help incorporate sheet music quickly into your andro
 # Example
 
 The following picture shows SheetMusicView in action:
-![Example of sheetmusicview](/images/noteExample.png)
+![Example of sheetmusicview](/images/noteExample1.png)
 
 # Usage
 
@@ -45,15 +45,24 @@ Currently, the fastest way to include the view into your project is to include i
 
 # Installation
 
-Add the following library dependency to your app's ```build.grade``` file:
+This library is deployed with the help of jitpack. Add the following library dependency to your app's ```build.grade``` file:
 
 ```
 dependencies {
-    compile 'com.nitishp.sheetmusic:sheetmusic:1.0.0'
+    compile 'com.github.nitishp:sheetmusicview:v1.1.0'
 }
 ```
 
-Make sure that you have ```jcenter()``` in your list of repositories.
+Also, add the following to your project's ```build.gradle``` file:
+
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
 
 # Contributing
 
