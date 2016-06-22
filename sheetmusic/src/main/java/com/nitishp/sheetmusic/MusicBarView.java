@@ -134,8 +134,6 @@ public class MusicBarView extends ViewGroup
             // most possible bottom value for the note is this.height - blackLineHeight (because the lowest note is LOWER_B)
 
             int noteBottom = (int) (this.height - blackLineHeight - (notes.get(i).getNoteValue().getValue() * incrementValue));
-            int debug2 = v.getWidth();
-            float debug = this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT;
             int leftStartVal = (i * itemWidth) + getPaddingLeft() + (int) (this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT);
             v.layout(leftStartVal, noteBottom - v.getMeasuredHeight(), leftStartVal + v.getMeasuredWidth(), noteBottom);
         }
