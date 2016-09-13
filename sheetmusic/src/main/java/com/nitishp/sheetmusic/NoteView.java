@@ -2,22 +2,16 @@ package com.nitishp.sheetmusic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 
 // This class contains the NoteView to actually display music notes. The positions for this
 // note ares set by the parent (which should always be MusicBarView
 public class NoteView extends View
 {
     private NoteData noteData; // metadata on the note type we want to draw
-    private Paint blackPaint;
-    Bitmap bitmap;
 
     // This function reads the attributes passed in through the XML and initializes the internal
     // noteData structure to the correct values
@@ -58,56 +52,33 @@ public class NoteView extends View
         initialize();
     }
 
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-
-        if(MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED)
-        {
-            height = 0;
-        }
-        if(MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED)
-        {
-            width = 0;
-        }
-        this.setMeasuredDimension(width, height);
-    }
-
-    public void onSizeChanged(int width, int height, int oldWidth, int oldHeight)
-    {
-        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
-    }
-
-    @Override
-    public void onDraw(Canvas canvas)
-    {
-        canvas.drawBitmap(bitmap, 0, 0, blackPaint);
-    }
-
     // Initialize the paint variables that will be used in onDraw()
     private void initialize()
     {
+        int backgroundImageId;
         if(noteData.getNoteDuration() == NoteData.NoteDuration.EIGHTH)
         {
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.eighth_note_stem_facing_up);
+            backgroundImageId = R.drawable.eighth_note_stem_facing_up;
         }
         else if(noteData.getNoteDuration() == NoteData.NoteDuration.FOURTH)
         {
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.quarter_note_stem_facing_up);
+            backgroundImageId = R.drawable.quarter_note_stem_facing_up;
         }
         else if(noteData.getNoteDuration() == NoteData.NoteDuration.HALF)
         {
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.half_note_stem_facing_up);
+            backgroundImageId = R.drawable.half_note_stem_facing_up;
         }
         else
         {
             // TODO: Throw an exception
-            bitmap = null;
+            backgroundImageId = R.drawable.eighth_note_stem_facing_up;
         }
-        blackPaint = new Paint();
-        blackPaint.setColor(Color.BLACK);
+        setBackgroundResource(backgroundImageId);
+
+        // Set the background image to the center
+        WindowManager.LayoutParams l = new WindowManager.LayoutParams();
+        l.gravity = Gravity.CENTER;
+        setLayoutParams(l);
     }
 
     public NoteData.NoteDuration getNoteDuration()
