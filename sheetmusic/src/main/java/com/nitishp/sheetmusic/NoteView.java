@@ -62,11 +62,25 @@ public class NoteView extends View
         }
         else if(noteData.getNoteDuration() == NoteData.NoteDuration.FOURTH)
         {
-            backgroundImageId = R.drawable.quarter_note_stem_facing_up;
+            if(noteData.getNoteValue().greaterThanHigherB())
+            {
+                backgroundImageId = R.drawable.quarter_note_stem_facing_down;
+            }
+            else
+            {
+                backgroundImageId = R.drawable.quarter_note_stem_facing_up;
+            }
         }
         else if(noteData.getNoteDuration() == NoteData.NoteDuration.HALF)
         {
-            backgroundImageId = R.drawable.half_note_stem_facing_up;
+            if(noteData.getNoteValue().greaterThanHigherB())
+            {
+                backgroundImageId = R.drawable.half_note_stem_facing_down;
+            }
+            else
+            {
+                backgroundImageId = R.drawable.half_note_stem_facing_up;
+            }
         }
         else
         {

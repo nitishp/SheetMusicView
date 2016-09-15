@@ -27,17 +27,17 @@
         <com.nitishp.sheetmusic.NoteView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:noteValue="LOWER_D"
+            app:noteValue="HIGHER_E"
             app:noteDuration="FOURTH"/>
         <com.nitishp.sheetmusic.NoteView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:noteValue="LOWER_E"
+            app:noteValue="HIGHER_B"
             app:noteDuration="FOURTH"/>
         <com.nitishp.sheetmusic.NoteView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:noteValue="LOWER_F"
+            app:noteValue="HIGHER_C"
             app:noteDuration="FOURTH"/>
     </com.nitishp.sheetmusic.MusicBarView>
 

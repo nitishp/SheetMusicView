@@ -32,6 +32,11 @@ public class NoteData
             return value;
         }
 
+        public boolean greaterThanHigherB()
+        {
+            return value >= HIGHER_B.getValue();
+        }
+
     }
     public enum NoteDuration
     {

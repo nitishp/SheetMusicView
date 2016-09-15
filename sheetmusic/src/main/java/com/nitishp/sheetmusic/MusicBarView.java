@@ -22,6 +22,7 @@ public class MusicBarView extends ViewGroup
     private final float PERCENT_HEIGHT_BLACK_AREA = 0.01f;
     private final float PERCENT_HEIGHT_WHITE_AREA = (1 - (PERCENT_HEIGHT_BLACK_AREA*NUM_POSSIBLE_BLACK_AREA))/(NUM_WHITE_AREA);
     private final float PERCENT_NOTE_PADDING_LEFT = 0.2f;
+    private final float PERCENT_NOTE_OVAL = 0.33f;
     private final int MAX_NUM_NOTES = 16;
     private final int NUM_WHITE_SPACES_LINE = 3; // number of white areas the child NoteView wants to cover
 
@@ -131,11 +132,23 @@ public class MusicBarView extends ViewGroup
             View v = getChildAt(i);
             // get the bottom value of the NoteView based on the NoteValue in the list of notes
             float incrementValue = 0.5f*(blackLineHeight + whiteAreaHeight);
-            // most possible bottom value for the note is this.height - blackLineHeight (because the lowest note is LOWER_B)
 
-            int noteBottom = (int) (this.height - blackLineHeight - (notes.get(i).getNoteValue().getValue() * incrementValue));
             int leftStartVal = (i * itemWidth) + getPaddingLeft() + (int) (this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT);
-            v.layout(leftStartVal, noteBottom - v.getMeasuredHeight(), leftStartVal + v.getMeasuredWidth(), noteBottom);
+
+            // Notes higher than B are laid out differently
+            if(!notes.get(i).getNoteValue().greaterThanHigherB())
+            {
+                // most possible bottom value for the note is this.height - blackLineHeight (because the lowest note is LOWER_B)
+                int noteBottom = (int) (this.height - blackLineHeight - (notes.get(i).getNoteValue().getValue() * incrementValue));
+                v.layout(leftStartVal, noteBottom - v.getMeasuredHeight(), leftStartVal + v.getMeasuredWidth(), noteBottom);
+            }
+            else
+            {
+                int noteTop = (int) (this.height - blackLineHeight
+                        - (notes.get(i).getNoteValue().getValue() * incrementValue)
+                        - (v.getMeasuredHeight() * PERCENT_NOTE_OVAL));
+                v.layout(leftStartVal, noteTop, leftStartVal + v.getMeasuredWidth(), noteTop + v.getMeasuredHeight());
+            }
         }
     }
 
