@@ -4,7 +4,7 @@ This is a simple library to help incorporate sheet music quickly into your andro
 # Example
 
 The following picture shows SheetMusicView in action:
-![Example of sheetmusicview](/images/noteExample1.png)
+![Example of sheetmusicview](/images/noteExample.png)
 
 # Usage
 
@@ -16,30 +16,30 @@ Currently, the fastest way to include the view into your project is to include i
     android:layout_height="match_parent"
     android:id="@+id/view">
     <com.nitishp.sheetmusic.NoteView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:noteValue="LOWER_B"
-        app:noteDuration="HALF"/>
-    <com.nitishp.sheetmusic.NoteView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:noteValue="LOWER_C"
-        app:noteDuration="HALF"/>
-    <com.nitishp.sheetmusic.NoteView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:noteValue="LOWER_D"
-        app:noteDuration="FOURTH"/>
-    <com.nitishp.sheetmusic.NoteView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:noteValue="LOWER_E"
-        app:noteDuration="FOURTH"/>
-    <com.nitishp.sheetmusic.NoteView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:noteValue="LOWER_F"
-        app:noteDuration="FOURTH"/>
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:noteValue="LOWER_B"
+		app:noteDuration="HALF"/>
+	<com.nitishp.sheetmusic.NoteView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:noteValue="LOWER_C"
+		app:noteDuration="HALF"/>
+	<com.nitishp.sheetmusic.NoteView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:noteValue="HIGHER_E"
+		app:noteDuration="FOURTH"/>
+	<com.nitishp.sheetmusic.NoteView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:noteValue="HIGHER_B"
+		app:noteDuration="FOURTH"/>
+	<com.nitishp.sheetmusic.NoteView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:noteValue="HIGHER_C"
+		app:noteDuration="FOURTH"/>
 </com.nitishp.sheetmusic.MusicBarView>
 ```
 
@@ -49,7 +49,7 @@ This library is deployed with the help of jitpack. Add the following library dep
 
 ```
 dependencies {
-    compile 'com.github.nitishp:sheetmusicview:v1.1.0'
+    compile 'com.github.nitishp:sheetmusicview:v1.2.0'
 }
 ```
 
@@ -68,8 +68,6 @@ allprojects {
 
 This is a library that I hope to grow into something that is in a lot better of a state than it is currently in. Some of the features that I hope to add include:
 
-* Better support for the upper half of the notes (so they are not chopped off the way they currently are).
-* Multi colored notes.
 * The ability to drag and drop notes into the view.
 * Making the view look more like a bar and possibly include treble and clef symbols.
 * Add easier support dynamically for changing the value of a note in code
