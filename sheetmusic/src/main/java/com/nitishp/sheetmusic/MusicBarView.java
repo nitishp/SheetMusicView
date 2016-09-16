@@ -136,7 +136,8 @@ public class MusicBarView extends ViewGroup
             int leftStartVal = (i * itemWidth) + getPaddingLeft() + (int) (this.width / MAX_NUM_NOTES * PERCENT_NOTE_PADDING_LEFT);
 
             // Notes higher than B are laid out differently
-            if(!notes.get(i).getNoteValue().greaterThanHigherB())
+            if((notes.get(i).getNoteDuration() == NoteData.NoteDuration.WHOLE)
+                    || !notes.get(i).getNoteValue().greaterThanHigherB())
             {
                 // most possible bottom value for the note is this.height - blackLineHeight (because the lowest note is LOWER_B)
                 int noteBottom = (int) (this.height - blackLineHeight - (notes.get(i).getNoteValue().getValue() * incrementValue));

@@ -84,8 +84,7 @@ public class NoteView extends View
         }
         else
         {
-            // TODO: Throw an exception
-            backgroundImageId = R.drawable.eighth_note_stem_facing_up;
+            backgroundImageId = R.drawable.whole_note;
         }
         setBackgroundResource(backgroundImageId);
 
