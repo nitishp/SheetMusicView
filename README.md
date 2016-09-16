@@ -4,6 +4,7 @@ This is a simple library to help incorporate sheet music quickly into your andro
 # Example
 
 The following picture shows SheetMusicView in action:
+
 ![Example of sheetmusicview](/images/noteExample.png)
 
 # Usage
